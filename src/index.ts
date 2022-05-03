@@ -35,12 +35,13 @@ wss.on('connection', (clientWs) => {
     })
   });
 
+  history.push({
+    text: 'Welcome to the chat!',
+    id: uuidv4(),
+  })
+
   clientWs.send(JSON.stringify({
     data: {
-      message: {
-        text: 'Welcome to the chat!',
-        id: uuidv4(),
-      },
       history
     }
   }))
