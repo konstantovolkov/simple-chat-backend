@@ -1,0 +1,24 @@
+name: Build and deploy docker image to Heroku
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Login to Heroku
+      run: docker login -u _ -p ${{ secrets.HEROKU_API_KEY }} registry.heroku.com
+    - name: Build the Docker image
+      run: docker build --rm=true -t registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web .
+    - name: Push to cintainer registry
+      run: docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
+    - name: Deploy
+      run: heroku container:release web ${{ secrets.HEROKU_APP_NAME }}
