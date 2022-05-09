@@ -2,11 +2,10 @@
   "name": "simple-chat",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "build:docker": "docker build -t simple-chat-be . ",
     "start:docker": "docker run -dp 8080:8080 simple-chat-be",
-    "start:dev": "nodemon index.ts",
+    "start:dev": "nodemon ./src/index.ts",
     "start": "node ./build/index.js",
     "build": "tsc"
   },
